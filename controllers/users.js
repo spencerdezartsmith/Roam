@@ -26,5 +26,5 @@ exports.signup = (req, res, next) => {
 }
 
 exports.signin = (req, res, next) => {
-  const { email, password } = req.body
+  res.send({ token: tokenForUser(req.user) })
 }
