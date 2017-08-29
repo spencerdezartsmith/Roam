@@ -10,6 +10,10 @@ const Post = bookshelf.Model.extend({
   city: function() {
     return this.belongsTo(City)
   }
+}, {
+  findOnePost: function(postId, userId) {
+    return this.query({ where: { author_id: userId }, andWhere: { id: postId }})
+  }
 })
 
 module.exports = Post

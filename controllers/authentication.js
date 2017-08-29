@@ -35,6 +35,7 @@ exports.signup = (req, res, next) => {
           })
       }
     })
+    .catch(err => res.status(500).send({ error: 'Something went wrong', msg: err.message }))
 }
 
 exports.signin = (req, res, next) => {
@@ -46,4 +47,5 @@ exports.signin = (req, res, next) => {
     created_at,
     token: tokenForUser(id)
   })
+  .catch(err => res.status(500).send({ error: 'Something went wrong', msg: err.message }))
 }
