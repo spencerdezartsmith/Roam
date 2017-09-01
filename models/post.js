@@ -12,7 +12,7 @@ const Post = bookshelf.Model.extend({
   }
 }, {
   findOnePost: function(postId, userId) {
-    return this.query({ where: { author_id: userId }, andWhere: { id: postId }})
+    return this.query({ where: { user_id: userId }, andWhere: { id: postId }})
   }
 })
 

@@ -3,5 +3,6 @@ module.exports = {
   connection: 'postgres://localhost:5432/roam',
   migrations: {
     directory: __dirname + '/models/db/migrations'
-  }
+  },
+  debug: true
 }

@@ -8,9 +8,9 @@ function tokenForUser(user) {
 }
 
 exports.signup = (req, res, next) => {
-  const { username, email, password, currentCity } = req.body
+  const { username, email, password, current_city } = req.body
 
-  if (!username || !email || !password || !currentCity) {
+  if (!username || !email || !password || !current_city) {
     res.status(422).send({ error: 'All fields are required!' })
   }
 
@@ -19,17 +19,17 @@ exports.signup = (req, res, next) => {
       if (user) {
         res.status(422).send({ error: 'Email already in use.' })
       } else {
-        new User({ username, email, password, currentCity }).save()
+        new User({ username, email, password, current_city }).save()
           .then(savedUser => {
             User.findById(savedUser.id)
               .then(user => {
-                const { id, username, currentCity, profilePhoto, created_at } = user.attributes
+                const { id, username, current_city, profile_photo, created_at } = user.attributes
                 res.send({
                   username,
-                  currentCity,
-                  profilePhoto,
+                  current_city,
+                  profile_photo,
                   created_at,
-                  token: tokenForUser(id)
+                  token: tokenForUser(savedUser)
                 })
               })
           })
@@ -39,13 +39,12 @@ exports.signup = (req, res, next) => {
 }
 
 exports.signin = (req, res, next) => {
-  const { id, username, currentCity, profilePhoto, created_at } = req.user.attributes
+  const { id, username, current_city, profile_photo, created_at } = req.user.attributes
   res.send({
     username,
-    currentCity,
-    profilePhoto,
+    current_city,
+    profile_photo,
     created_at,
-    token: tokenForUser(id)
+    token: tokenForUser(req.user.attributes)
   })
-  .catch(err => res.status(500).send({ error: 'Something went wrong', msg: err.message }))
 }

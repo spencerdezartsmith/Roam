@@ -3,7 +3,7 @@ const Post = require('../models/post')
 
 exports.getAllPostsForUser = (req, res, next) => {
   const { userId } = req.params
-  Post.query({ where: { author_id: userId } }).fetchAll()
+  Post.query({ where: { user_id: userId } }).fetchAll()
     .then(posts => res.send({ posts }))
     .catch(err => res.status(500).send({ error: 'Something went wrong', msg: err.message }))
 }

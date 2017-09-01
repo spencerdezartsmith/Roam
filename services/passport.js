@@ -33,6 +33,7 @@ const jwtOptions = {
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
   User.findById(payload.sub)
     .then(user => {
+      console.log('from jwt', user);
       if (!user) {
         return done(null, false)
       } else {

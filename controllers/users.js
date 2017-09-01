@@ -2,13 +2,13 @@ const User = require('../models/user')
 
 exports.editProfile = (req, res, next) => {
   const { userId } = req.params
-  const { username, currentCity, profilePhoto } = req.body
+  const { username, current_city, profile_photo } = req.body
   User.findById(userId)
     .then(user => {
       user.set({
         username,
-        currentCity,
-        profilePhoto
+        current_city,
+        profile_photo
       })
       .save()
       .then(user => res.send({ updatedUser: user }))
